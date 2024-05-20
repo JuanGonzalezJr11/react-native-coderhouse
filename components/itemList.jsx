@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
-import categories from '../../data/categories.json'
-import { colors } from '../../constants/colors.js'
-console.log(categories)
+import categories from '../data/categories.json'
+import { colors } from '../constants/colors.js'
 const ItemList = ({ itemList, handleModal }) => {
     return (
         <View style={styles.taskContainer}>

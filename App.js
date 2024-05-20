@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import ModalCustom from "./components/modalCustom/modalCustom";
-import CategoriesInput from "./components/CategoriesInput/CategoriesInput";
-import ItemList from "./components/ItemList/ItemList";
+import ModalCustom from "./components/modalCustom";
+import CategoriesInput from "./components/categoriesInput";
+import ItemList from "./components/itemList";
 import Header from "./components/header";
+import ProductsList from "./components/productsList";
 
 const App = () => {
   const [textItem, setTextItem] = useState("")
@@ -39,10 +40,11 @@ const App = () => {
         addItem={addItem}
         handleChangeText={handleChangeText}
       />
-      <ItemList
+      {/* <ItemList
          itemList={itemList}
          handleModal={handleModal}
-      />
+      /> */}
+      <ProductsList />
       <ModalCustom
         modalVisible={modalVisible} 
         itemSelected={itemSelected}
