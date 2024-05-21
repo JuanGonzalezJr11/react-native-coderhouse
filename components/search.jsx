@@ -18,9 +18,9 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
         <Pressable onPress={() => onSearch(keyword)}>
           <FontAwesome name="search" size={24} color={colors.black} />
         </Pressable>
-        <Pressable onPress={goBack}>
+        {/* <Pressable onPress={goBack}>
           <Ionicons name="arrow-back" size={24} color={colors.black} />
-        </Pressable>
+        </Pressable> */}
       </View>
     </View>
   );

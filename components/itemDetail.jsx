@@ -20,9 +20,9 @@ const ItemDetail = ({ route, navigation }) => {
     }, [itemIdSelected])
     return (
         <View style={styles.mainContainer}>
-            <Pressable onPress={() => navigation.goBack()} >
+            {/* <Pressable onPress={() => navigation.goBack()} >
                 <Ionicons name="arrow-back-circle-outline" size={36} color="black" />
-            </Pressable>
+            </Pressable> */}
             {product ?
                 (
                 <View style={orientation === "portrait" ? styles.container : styles.containerLandscape}>
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20
     },
     container: {
-        marginTop: 5,
         width: "100%",
         alignItems: "center"
     },
@@ -68,12 +67,10 @@ const styles = StyleSheet.create({
     image: {
         height: 250,
         width: "50%",
-        marginBottom: 5
     },
     imageLandscape: {
         height: 200,
         width: "30%",
-        marginBottom: 5
     },
     detailContainer: {
         width: "100%"
@@ -84,6 +81,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
+        marginTop: 10,
         marginBottom: 5
     },
     description: {

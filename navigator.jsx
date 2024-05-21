@@ -14,25 +14,27 @@ const Navigator = () => {
             <Stack.Navigator
                 initialRouteName='CategoriesList'
                 screenOptions={
-                    ({route}) => (
+                    ({ route }) => (
                         {
                             header: () => {
-                                return <Header title={route.name === "CategoriesList" ? "Categorías"
-                                : route.name === "ProductsList" ? route.params.item : "Detalles del producto" }/>
+                                const isCategoriesList = route.name === "CategoriesList";
+                                const title = isCategoriesList ? "Categorías" 
+                                : route.name === "ProductList" ? route.name.item : "Detalles del producto"
+                                return <Header title={title} showBackButton={!isCategoriesList}/>
                             }
                         }
                     )
                 }
             >
-                <Stack.Screen 
+                <Stack.Screen
                     component={CategoriesList}
                     name='CategoriesList'
                 />
-                <Stack.Screen 
+                <Stack.Screen
                     component={ProductsList}
                     name='ProductsList'
                 />
-                <Stack.Screen 
+                <Stack.Screen
                     component={ItemDetail}
                     name='ItemDetail'
                 />
