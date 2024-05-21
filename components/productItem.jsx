@@ -1,16 +1,18 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../constants/colors.js'
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, setItemIdSelected = () => { } }) => {
     return (
         <View style={styles.card}>
-            <Text style={styles.text}>{product.title}</Text>
-            <Image
-                resizeMode='cover'
-                style={styles.image}
-                source={{ uri: product.image }}
-            />
+            <Pressable style={styles.pressable} onPress={() => setItemIdSelected(product.id)}>
+                <Text style={styles.text}>{product.title}</Text>
+                <Image
+                    resizeMode='cover'
+                    style={styles.image}
+                    source={{ uri: product.image }}
+                />
+            </Pressable>
         </View>
     )
 }
@@ -19,10 +21,9 @@ export default ProductItem
 
 const styles = StyleSheet.create({
     card: {
-        alignItems: "stretch",
         backgroundColor: colors.primary,
         width: "100%",
-        paddingVertical: 15,
+        paddingVertical: 10,
         marginVertical: 10,
         borderRadius: 5,
         shadowColor: colors.black,
@@ -41,6 +42,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     image: {
-        paddingHorizontal: 10
+        height: 120,
+        width: "30%",
+        marginHorizontal: 10
+    },
+    pressable: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
     }
 })

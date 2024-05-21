@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { colors } from '../constants/colors'
 
 const Header = ({title}) => {
+  const {height, width} = useWindowDimensions()
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={width >= 360 ? styles.text : styles.textSm}>{title}</Text>
     </View>
   )
 }
@@ -17,6 +18,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         color: colors.white
+    },
+    textSm: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: colors.white
     },
     container: {
         marginBottom: 20,

@@ -6,6 +6,7 @@ import ItemList from "./components/itemList"
 import Header from "./components/header"
 import ProductsList from "./components/productsList"
 import CategoriesList from "./components/categoriesList"
+import ItemDetail from "./components/itemDetail"
 
 const App = () => {
   // const [textItem, setTextItem] = useState("")
@@ -34,6 +35,7 @@ const App = () => {
     setItemSelected({})
   }
   const [categorySelected, setCategorySelected] = useState("")
+  const [itemIdSelected, setItemIdSelected] = useState("")
   return (
     <View style={styles.container}>
       <Header title={"Categorías"} />
@@ -46,7 +48,23 @@ const App = () => {
          itemList={itemList}
          handleModal={handleModal}
       /> */}
-      {categorySelected ? <ProductsList categorySelected={categorySelected} setCategorySelected={setCategorySelected}/> : <CategoriesList selectCategory={setCategorySelected} />}
+      {categorySelected ?
+        (!itemIdSelected ?
+          <ProductsList
+            categorySelected={categorySelected}
+            setCategorySelected={setCategorySelected}
+            setItemIdSelected={setItemIdSelected}
+          />
+          :
+          <ItemDetail
+            itemIdSelected={itemIdSelected}
+            setItemIdSelected={setItemIdSelected}
+          />)
+        :
+        (<CategoriesList
+          selectCategory={setCategorySelected}
+        />)
+      }
       <ModalCustom
         modalVisible={modalVisible}
         itemSelected={itemSelected}

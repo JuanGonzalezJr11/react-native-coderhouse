@@ -7,7 +7,8 @@ import { colors } from "../constants/colors";
 
 const ProductsList = ({
   categorySelected = "",
-  setCategorySelected = () => {},
+  setCategorySelected = () => { },
+  setItemIdSelected = () => { }
 }) => {
   const [keyword, setKeyword] = useState("");
   const [productsFiltered, setProductsFiltered] = useState([]);
@@ -41,7 +42,7 @@ const ProductsList = ({
       ) : (
         <FlatList
           data={productsFiltered}
-          renderItem={({ item }) => <ProductItem product={item} />}
+          renderItem={({ item }) => <ProductItem product={item} setItemIdSelected={setItemIdSelected} />}
           keyExtractor={(p) => p.id}
           style={styles.flatlist}
         />

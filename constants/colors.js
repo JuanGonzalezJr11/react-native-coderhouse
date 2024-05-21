@@ -4,5 +4,6 @@ export const colors = {
     black: "black",
     white: "white",
     gray: "gray",
-    error: "red"
+    error: "red",
+    success: "green"
 }
