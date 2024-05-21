@@ -4,7 +4,7 @@ import allProducts from "../data/products.json"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '../constants/colors';
 
-const ItemDetail = ({ route, setItemIdSelected }) => {
+const ItemDetail = ({ route, navigation }) => {
     const [product, setProduct] = useState(null)
     const [orientation, setOrientation] = useState("portrait")
     const { width, height } = useWindowDimensions()
@@ -20,13 +20,12 @@ const ItemDetail = ({ route, setItemIdSelected }) => {
     }, [itemIdSelected])
     return (
         <View style={styles.mainContainer}>
-            <Pressable onPress={() => setItemIdSelected("")} >
+            <Pressable onPress={() => navigation.goBack()} >
                 <Ionicons name="arrow-back-circle-outline" size={36} color="black" />
             </Pressable>
             {product ?
                 (
                 <View style={orientation === "portrait" ? styles.container : styles.containerLandscape}>
-                    {/* <View style={styles.container}> */}
                     <Image
                         resizeMode="cover"
                         style={orientation === "portrait" ? styles.image : styles.imageLandscape}

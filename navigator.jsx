@@ -11,8 +11,19 @@ const Stack = createNativeStackNavigator()
 const Navigator = () => {
     return (
         <NavigationContainer>
-            <Header title={"La casa del celíaco"} />
-            <Stack.Navigator>
+            <Stack.Navigator
+                initialRouteName='CategoriesList'
+                screenOptions={
+                    ({route}) => (
+                        {
+                            header: () => {
+                                return <Header title={route.name === "CategoriesList" ? "Categorías"
+                                : route.name === "ProductsList" ? route.params.item : "Detalles del producto" }/>
+                            }
+                        }
+                    )
+                }
+            >
                 <Stack.Screen 
                     component={CategoriesList}
                     name='CategoriesList'

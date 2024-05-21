@@ -6,7 +6,6 @@ import Search from "./search";
 import { colors } from "../constants/colors";
 
 const ProductsList = ({
-  setCategorySelected = () => { },
   navigation,
   route
 }) => {
@@ -36,7 +35,7 @@ const ProductsList = ({
       <Search
         onSearch={setKeyword}
         error={error}
-        goBack={() => setCategorySelected("")}
+        goBack={() => navigation.goBack()}
       />
       {error ? (
         <Text style={styles.error}>{error}</Text>
