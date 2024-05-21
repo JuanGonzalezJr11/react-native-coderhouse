@@ -5,7 +5,7 @@
         "price": 1500,
         "category": "Lacteos",
         "stock": 20,
-        "thumbnail": "https://media.f2h.shop/media/catalog/product/cache/ab45d104292f1bb63d093e6be8310c97/i/m/imageedit_1_4837957539.png"
+        "image": "../assets/productsImages/lecheserenisima.png"
     },
     {
         "id": 2,
@@ -13,6 +13,6 @@
         "price": 3000,
         "category": "Lacteos",
         "stock": 16,
-        "thumbnail": "https://media.f2h.shop/media/catalog/product/cache/ab45d104292f1bb63d093e6be8310c97/m/a/manteca_ls_calidad_extra.jpg"
+        "image": "../assets/productsImages/mantecaserenisima.jpg"
     }
 ]

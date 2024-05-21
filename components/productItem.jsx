@@ -9,7 +9,7 @@ const ProductItem = ({ product }) => {
             <Image
                 resizeMode='cover'
                 style={styles.image}
-                source={{ uri: product.thumbnail }}
+                source={{ uri: product.image }}
             />
         </View>
     )

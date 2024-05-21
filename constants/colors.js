@@ -3,5 +3,6 @@ export const colors = {
     secondary: "#65B1EE",
     black: "black",
     white: "white",
-    gray: "gray"
+    gray: "gray",
+    error: "red"
 }
