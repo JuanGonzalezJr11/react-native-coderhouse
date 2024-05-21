@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../constants/colors.js'
 
-const ProductItem = ({ product, setItemIdSelected = () => { } }) => {
+const ProductItem = ({ product, navigation, route }) => {
     return (
         <View style={styles.card}>
-            <Pressable style={styles.pressable} onPress={() => setItemIdSelected(product.id)}>
+            <Pressable style={styles.pressable} onPress={() => navigation.navigate('ItemDetail', { itemIdSelected: product.id })}>
                 <Text style={styles.text}>{product.title}</Text>
                 <Image
                     resizeMode='cover'

@@ -4,10 +4,12 @@ import allProducts from "../data/products.json"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '../constants/colors';
 
-const ItemDetail = ({ itemIdSelected, setItemIdSelected }) => {
+const ItemDetail = ({ route, setItemIdSelected }) => {
     const [product, setProduct] = useState(null)
     const [orientation, setOrientation] = useState("portrait")
     const { width, height } = useWindowDimensions()
+    const {itemIdSelected} = route.params
+    console.log(itemIdSelected)
     useEffect(() => {
         if (width > height) setOrientation("landscape")
         else setOrientation("portrait")

@@ -1,13 +1,9 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import categories from "../data/categories.json";
 import { colors } from "../constants/colors";
 
-const CategoriesList = ({ selectCategory = () => {} }) => {
-//   const [categorySelected, setCategorySelected] = useState("");
-//   const selectCategory = (category) => {
-//     setCategorySelected(category);
-//   };
+const CategoriesList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -15,7 +11,7 @@ const CategoriesList = ({ selectCategory = () => {} }) => {
         renderItem={({ item }) => (
           <Pressable
             style={styles.pressable}
-            onPress={() => selectCategory(item)}
+            onPress={() => navigation.navigate("ProductsList", { item })}
           >
             <Text style={styles.text}>{item}</Text>
           </Pressable>
