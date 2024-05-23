@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { View, StyleSheet, Platform, StatusBar } from "react-native"
 import Navigator from "./navigator"
+import { Provider } from "react-redux"
+import store from "./store"
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false)
@@ -18,7 +20,9 @@ const App = () => {
   const [itemIdSelected, setItemIdSelected] = useState("")
   return (
     <View style={styles.container}>
-      <Navigator />
+      <Provider store={store}>
+        <Navigator />
+      </Provider>
     </View>
   )
 }
