@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "title": "Leche La Serenísima",
+        "description": "Leche entera 3lts.",
+        "price": 1500,
+        "category": "Lacteos",
+        "stock": 20,
+        "image": "../assets/productsImages/lecheserenisima.png",
+        "quantity": 2
+    }
+]

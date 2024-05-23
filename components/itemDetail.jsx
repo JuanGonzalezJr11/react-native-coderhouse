@@ -9,7 +9,6 @@ const ItemDetail = ({ route, navigation }) => {
     const [orientation, setOrientation] = useState("portrait")
     const { width, height } = useWindowDimensions()
     const {itemIdSelected} = route.params
-    console.log(itemIdSelected)
     useEffect(() => {
         if (width > height) setOrientation("landscape")
         else setOrientation("portrait")
@@ -52,7 +51,9 @@ export default ItemDetail
 const styles = StyleSheet.create({
     mainContainer: {
         width: "100%",
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        flex: 1,
+        flexDirection: "column"
     },
     container: {
         width: "100%",

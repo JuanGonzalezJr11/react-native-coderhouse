@@ -45,6 +45,7 @@ const ProductsList = ({
           renderItem={({ item }) => <ProductItem product={item} navigation={navigation} />}
           keyExtractor={(p) => p.id}
           style={styles.flatlist}
+          showsVerticalScrollIndicator={false}
         />
       )}
     </View>
@@ -58,6 +59,8 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 10,
     alignItems: "center",
+    flex: 1,
+    flexDirection: "column"
   },
   flatlist: {
     width: "90%",

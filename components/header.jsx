@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     color: colors.white
   },
   container: {
-    marginBottom: 20,
+    marginBottom: 0,
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: colors.secondary,

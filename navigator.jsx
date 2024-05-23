@@ -2,16 +2,14 @@ import { StyleSheet } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import ProductsList from './components/productsList'
-import ItemDetail from './components/itemDetail'
-import Header from './components/header'
-import CategoriesList from './components/categoriesList'
+import BottomTabNavigator from './components/bottomTabNavigator'
 
 const Stack = createNativeStackNavigator()
 const Navigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator
+            <BottomTabNavigator />
+            {/* <Stack.Navigator
                 initialRouteName='CategoriesList'
                 screenOptions={
                     ({ route }) => (
@@ -38,7 +36,7 @@ const Navigator = () => {
                     component={ItemDetail}
                     name='ItemDetail'
                 />
-            </Stack.Navigator>
+            </Stack.Navigator> */}
         </NavigationContainer>
     )
 }

@@ -16,5 +16,23 @@
         "category": "Lacteos",
         "stock": 16,
         "image": "../assets/productsImages/mantecaserenisima.jpg"
+    },
+    {
+        "id": 3,
+        "title": "Yogur La Serenísima",
+        "description": "1lt.",
+        "price": 1600,
+        "category": "Lacteos",
+        "stock": 10,
+        "image": "https://delimart.com.ar/user-content/7d51ecee-78ff-4353-9eda-9d530d553492.jpg"
+    },
+    {
+        "id": 4,
+        "title": "Queso La Serenísima",
+        "description": "500grs.",
+        "price": 2600,
+        "category": "Lacteos",
+        "stock": 21,
+        "image": "https://maricre.com.ar/wp-content/uploads/2020/06/77.jpg"
     }
 ]

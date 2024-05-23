@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "userId": 2,
+        "createdAt": 1679869276580,
+        "items": [
+            {
+                "id": 3,
+                "title": "Yogur La Serenísima",
+                "description": "1lt.",
+                "price": 1600,
+                "category": "Lacteos",
+                "stock": 10,
+                "image": "https://delimart.com.ar/user-content/7d51ecee-78ff-4353-9eda-9d530d553492.jpg",
+                "quantity": 2
+            },
+            {
+                "id": 2,
+                "title": "Manteca La Serenísima",
+                "description": "300grs.",
+                "price": 3000,
+                "category": "Lacteos",
+                "stock": 16,
+                "image": "../assets/productsImages/mantecaserenisima.jpg",
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "userId": 2,
+        "createdAt": 167987000552,
+        "items": [
+            {
+                "id": 2,
+                "title": "Manteca La Serenísima",
+                "description": "300grs.",
+                "price": 3000,
+                "category": "Lacteos",
+                "stock": 16,
+                "image": "../assets/productsImages/mantecaserenisima.jpg",
+                "quantity": 6
+            }
+        ]
+    }
+]
