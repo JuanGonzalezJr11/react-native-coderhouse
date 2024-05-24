@@ -3,8 +3,10 @@ import React from 'react'
 import { colors } from '../constants/colors'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const Header = ({ title, showBackButton }) => {
+  const categorySelected = useSelector(state => state.shopReducer.value.categorySelected)
   const { height, width } = useWindowDimensions()
   const navigation = useNavigation()
   return (

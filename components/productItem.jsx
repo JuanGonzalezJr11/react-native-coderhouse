@@ -1,11 +1,18 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../constants/colors.js'
+import { useDispatch } from 'react-redux'
+import { setIdSelected } from '../features/shopSlice.js'
 
 const ProductItem = ({ product, navigation }) => {
+    const dispatch = useDispatch()
+    const handleNavigate = () => {
+        dispatch(setIdSelected(product.title))
+        navigation.navigate('ItemDetail', { itemIdSelected: product.id })
+    }
     return (
         <View style={styles.card}>
-            <Pressable style={styles.pressable} onPress={() => navigation.navigate('ItemDetail', { itemIdSelected: product.id })}>
+            <Pressable style={styles.pressable} onPress={handleNavigate}>
                 <Text style={styles.text}>{product.title}</Text>
                 <Image
                     resizeMode='cover'

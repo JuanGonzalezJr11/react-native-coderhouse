@@ -1,9 +1,16 @@
-import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import React from "react";
-import categories from "../data/categories.json";
-import { colors } from "../constants/colors";
+import { StyleSheet, Text, View, FlatList, Pressable } from "react-native"
+import React from "react"
+import categories from "../data/categories.json"
+import { colors } from "../constants/colors"
+import { useDispatch, useSelector } from "react-redux"
+import { setCategorySelected } from "../features/shopSlice"
 
 const CategoriesList = ({ navigation }) => {
+  const dispatch = useDispatch()
+  const handleNavigate = (item) => {
+    dispatch(setCategorySelected(item))
+    navigation.navigate("ProductsList", { item })
+  }
   return (
     <View style={styles.container}>
       <FlatList
@@ -11,7 +18,7 @@ const CategoriesList = ({ navigation }) => {
         renderItem={({ item }) => (
           <Pressable
             style={styles.pressable}
-            onPress={() => navigation.navigate("ProductsList", { item })}
+            onPress={() => handleNavigate(item) }
           >
             <Text style={styles.text}>{item}</Text>
           </Pressable>
