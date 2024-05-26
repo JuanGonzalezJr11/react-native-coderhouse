@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native"
 import React from "react"
-import categories from "../data/categories.json"
+// import categories from "../data/categories.json"
 import { colors } from "../constants/colors"
 import { useDispatch, useSelector } from "react-redux"
 import { setCategorySelected } from "../features/shopSlice"
+import { useGetCategoriesQuery } from "../services/shopService"
 
 const CategoriesList = ({ navigation }) => {
+  const {data: categories, error, isLoading} = useGetCategoriesQuery()
   const dispatch = useDispatch()
   const handleNavigate = (item) => {
     dispatch(setCategorySelected(item))

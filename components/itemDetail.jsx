@@ -1,22 +1,29 @@
 import { StyleSheet, Text, View, Image, Pressable, useWindowDimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import allProducts from "../data/products.json"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '../constants/colors';
+import { useGetProductByIdQuery } from '../services/shopService';
+import { useDispatch } from 'react-redux';
+import { addCartItem } from '../features/cartSlice';
 
 const ItemDetail = ({ route, navigation }) => {
-    const [product, setProduct] = useState(null)
+    // const [product, setProduct] = useState(null)
     const [orientation, setOrientation] = useState("portrait")
     const { width, height } = useWindowDimensions()
     const {itemIdSelected} = route.params
+    const {data: product, error, isLoading} = useGetProductByIdQuery(itemIdSelected)
+    const dispatch = useDispatch()
     useEffect(() => {
         if (width > height) setOrientation("landscape")
         else setOrientation("portrait")
     }, [width, height])
-    useEffect(() => {
-        const productSelected = allProducts.find((product) => product.id === itemIdSelected)
-        setProduct(productSelected)
-    }, [itemIdSelected])
+    // useEffect(() => {
+    //     const productSelected = allProducts.find((product) => product.id === itemIdSelected)
+    //     setProduct(productSelected)
+    // }, [itemIdSelected])
+    const handleAddCart = () => {
+        dispatch(addCartItem({...product, quantity: 1}))
+    }
     return (
         <View style={styles.mainContainer}>
             {/* <Pressable onPress={() => navigation.goBack()} >
@@ -34,7 +41,7 @@ const ItemDetail = ({ route, navigation }) => {
                         <Text style={styles.title}>{product.title}</Text>
                         <Text style={styles.description}>{product.description}</Text>
                         <Text style={styles.price}>${product.price}</Text>
-                        <Pressable style={styles.button}>
+                        <Pressable style={styles.button} onPress={handleAddCart}>
                             <Text style={styles.textButton}>Añadir al carrito</Text>
                         </Pressable>
                     </View>
@@ -53,7 +60,8 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingHorizontal: 20,
         flex: 1,
-        flexDirection: "column"
+        flexDirection: "column",
+        marginTop: 10
     },
     container: {
         width: "100%",

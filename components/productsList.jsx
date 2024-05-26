@@ -1,9 +1,9 @@
 import { StyleSheet, FlatList, View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import products from "../data/products.json";
 import ProductItem from "./productItem";
 import Search from "./search";
 import { colors } from "../constants/colors";
+import { useGetProductsByCategoryQuery } from "../services/shopService";
 
 const ProductsList = ({
   navigation,
@@ -13,6 +13,7 @@ const ProductsList = ({
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [error, setError] = useState("");
   const {item: category} = route.params
+  const {data: productsFetched, error: errorFromFetched, isLoading} = useGetProductsByCategoryQuery(category)
   // El "useEffect" tiene 3 formas de ejecutarse, cuando tiene "[]" hace que se ejecute una sola vez cuando carga el componente, cuando tiene "[nombredevariable]" que indica que cada vez que inicia o esa variable sufra un cambio se ejecutara ese useEffect, o bien sin nada, que hace que se ejecute el useEffect cada vez que cualquiera de las variables cambie.
   useEffect(() => {
     regex = /\d/;
@@ -21,15 +22,17 @@ const ProductsList = ({
       setError("No debe usar números para su búsqueda.");
       return;
     }
-    const productsPreFiltered = products.filter(
-      (product) => product.category === category
-    );
-    const productsFilter = productsPreFiltered.filter((product) =>
-      product.title.toLowerCase().includes(keyword.toLowerCase())
-    );
-    setProductsFiltered(productsFilter);
-    setError("");
-  }, [keyword, category]);
+    // const productsPreFiltered = products.filter(
+    //   (product) => product.category === category
+    // );
+    if(!isLoading) {
+      const productsFilter = productsFetched.filter((product) =>
+        product.title.toLowerCase().includes(keyword.toLowerCase())
+      );
+      setProductsFiltered(productsFilter);
+      setError("")
+    }
+  }, [keyword, category, productsFetched]);
   return (
     <View style={styles.container}>
       <Search

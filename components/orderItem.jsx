@@ -8,9 +8,9 @@ const OrderItem = ({ order }) => {
     return (
         <View style={styles.card} onPress={() => {}}>
             <View style={styles.textContainer}>
+                <FontAwesome5 name="clipboard-list" size={24} color={colors.black} />
                 <Text style={styles.text}>{new Date(order.createdAt).toLocaleString()}</Text>
                 <Text style={styles.textPrice}>${total}</Text>
-                <FontAwesome5 name="clipboard-list" size={24} color={colors.black} />
             </View>
         </View>
     )
@@ -20,15 +20,21 @@ export default OrderItem
 
 const styles = StyleSheet.create({
     card: {
-        
+        borderBottomWidth: 1,
+        borderColor: colors.primary,
+        marginHorizontal: 15,
+        marginVertical: 5,
+        padding: 5
     },
     textContainer: {
-
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     text: {
-
+        fontSize: 16
     },
     textPrice: {
-
+        fontSize: 16,
+        fontWeight: "bold"
     },
 })
