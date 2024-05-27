@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   card: {
     borderColor: colors.primary,
     borderBottomWidth: 1,
-    margin: 10
+    marginHorizontal: 10,
+    marginVertical: 5
   },
   textContainer: {
     padding: 10,
