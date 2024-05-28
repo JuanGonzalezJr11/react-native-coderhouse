@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import InputForm from './inputForm'
 import SubmitButton from './submitButton'
 import { useDispatch } from 'react-redux'
 import { useSignUpMutation } from '../services/authService'
-import { setUser } from '../features/userSlice'
 import { signUpSchema } from '../validations/authSchema'
+import { colors } from '../constants/colors'
 
 const Signup = ({ navigation }) => {
     const [email, setEmail] = useState("")
@@ -16,68 +16,67 @@ const Signup = ({ navigation }) => {
     const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
     const dispatch = useDispatch()
     const [triggerSignUp, result] = useSignUpMutation()
-    // useEffect(() => {
-    //     if(result.isSuccess) {
-    //         dispatch(
-    //             setUser({
-    //                 email: result.data.email,
-    //                 idToken: result.data.idToken
-    //             })
-    //         )
-    //     }
-    // }, [result])
     const onSubmit = () => {
         try {
             setErrorMail("")
             setErrorPassword("")
             setErrorConfirmPassword("")
-            const validation = signUpSchema.validateSync({email, password, confirmPassword})
+            const validation = signUpSchema.validateSync({email, password, confirmPassword}, { abortEarly: false })
             triggerSignUp({email, password, returnSecureToken: true})
         } catch (error) {
-            switch (error) {
-                case "email":
-                    setErrorMail(error.message)
-                    break;
-                case "password":
-                    setErrorPassword(error.message)
-                    break;
-                case "confirmPassword":
-                    setErrorConfirmPassword(error.message)
-                    break;
-                default:
-                    break;
-            }
+            error.inner.forEach(e => {
+                switch (e.path) {
+                    case "email":
+                        setErrorMail(e.message)
+                        break;
+                    case "password":
+                        setErrorPassword(e.message)
+                        break;
+                    case "confirmPassword":
+                        setErrorConfirmPassword(e.message)
+                        break;
+                    default:
+                        break;
+                }
+            })
         }
     }
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
                 <Text style={styles.title}>Creación de cuenta</Text>
-                <InputForm
-                    label={"email"}
-                    onChange={setEmail}
-                    error={errorMail}
-                />
-                <InputForm
-                    label={"contraseña"}
-                    onChange={setPassword}
-                    error={errorPassword}
-                    isSecure={true}
-                />
-                <InputForm
-                    label={"confirmar contraseña"}
-                    onChange={setConfirmPassword}
-                    error={errorConfirmPassword}
-                    isSecure={true}
-                />
+                <View style={styles.inputContainer}>
+                    <InputForm
+                        label={"Email..."}
+                        onChange={setEmail}
+                        error={errorMail}
+                    />
+                    <InputForm
+                        label={"Contraseña..."}
+                        onChange={setPassword}
+                        error={errorPassword}
+                        isSecure={true}
+                    />
+                    <InputForm
+                        label={"Confirmar contraseña..."}
+                        onChange={setConfirmPassword}
+                        error={errorConfirmPassword}
+                        isSecure={true}
+                    />
+                </View>
                 <SubmitButton
                     onPress={onSubmit}
                     title="Registrarme"
                 />
-                <Text style={styles.text}>¿Ya tienes una cuenta?</Text>
-                <Pressable onPress={() => navigation.navigate('Login')}>
-                    <Text style={styles.subLink}>Logearme</Text>
-                </Pressable>
+                <View>
+                    <Text style={styles.text}>¿Ya tienes una cuenta?</Text>
+                    <Pressable onPress={() => navigation.navigate('Login')}>
+                        <Text style={styles.subLink}>Logearme</Text>
+                    </Pressable>
+                </View>
+            </View>
+            <View style={styles.footer}>
+                <Text style={styles.productBy}>Product by Juan Gonzalez | 2024</Text>
             </View>
         </View>
     )
@@ -86,5 +85,42 @@ const Signup = ({ navigation }) => {
 export default Signup
 
 const styles = StyleSheet.create({
-
+    mainContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: colors.white
+    },
+    container: {
+        alignItems: "center",
+        gap: 10,
+    },
+    inputContainer: {
+        width: "100%",
+        alignItems: 'center'
+    },
+    title: {
+        fontSize: 20,
+        color: colors.primary,
+        fontWeight: "bold"
+    },
+    text: {
+        textAlign: "center"
+    },
+    subLink: {
+        textDecorationLine: 'underline',
+        color: colors.primary,
+        textAlign: "center"
+    },
+    footer: {
+        position: 'absolute',
+        backgroundColor: colors.white,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        alignItems: 'center'
+    },
+    productBy: {
+        fontSize: 10,
+        color: colors.gray
+    }
 })

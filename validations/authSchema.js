@@ -11,3 +11,11 @@ export const signUpSchema = object().shape({
         .oneOf([ref("password"), null], "La contraseña debe ser la misma que ingresó anteriormente")
         .required("Debe reingresar su contraseña")
 })
+
+export const signInSchema = object().shape({
+    email: string()
+        .required("Debe ingresar el email")
+        .email("El email ingresado no pertenece a una cuenta existente"),
+    password: string()
+        .required("Debe ingresar la contraseña")
+})

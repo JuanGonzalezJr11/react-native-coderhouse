@@ -21,5 +21,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: "90%",
         padding: 10,
+        margin: 10
+    },
+    text: {
+      color: colors.white,
+      fontSize: 16,
+      fontWeight: "bold"
     }
 })

@@ -1,6 +1,5 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
-import dataOrder from "../data/order.json";
 import OrderItem from "./orderItem";
 import { useGetOrderByUserQuery } from "../services/shopService";
 import { useSelector } from "react-redux";
