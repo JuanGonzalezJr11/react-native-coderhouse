@@ -4,13 +4,13 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { colors } from '../constants/colors';
 
 const OrderItem = ({ order }) => {
-    const total = order.items.reduce((acumulador, currentItem) => acumulador += currentItem.price * currentItem.quantity, 0)
+    // const total = order.items.reduce((acumulador, currentItem) => acumulador += currentItem.price * currentItem.quantity, 0)
     return (
         <View style={styles.card} onPress={() => {}}>
             <View style={styles.textContainer}>
                 <FontAwesome5 name="clipboard-list" size={24} color={colors.black} />
-                <Text style={styles.text}>{new Date(order.createdAt).toLocaleString()}</Text>
-                <Text style={styles.textPrice}>${total}</Text>
+                <Text style={styles.text}>{order.createdAt}</Text>
+                <Text style={styles.textPrice}>${order.total}</Text>
             </View>
         </View>
     )

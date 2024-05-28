@@ -10,9 +10,10 @@ const Cart = () => {
   const { items: cartData, total } = useSelector(
     (state) => state.cartReducer.value
   );
+  const { user } = useSelector((state) => state.authReducer.value)
   const [triggerPostOrder, result] = usePostOrderMutation()
   const onConfirmOrder = () => {
-    triggerPostOrder({ items: cartData, user: 'Juan Gonzalez', total })
+    triggerPostOrder({ items: cartData, createdAt: new Date().toLocaleString(), user: user, total })
   }
   // const total = cartData.reduce((acumulador, currentItem) => acumulador += currentItem.price * currentItem.quantity, 0)
   return (
