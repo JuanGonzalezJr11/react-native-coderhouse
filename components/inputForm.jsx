@@ -16,7 +16,6 @@ const InputForm = ({
     }
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.subtitle}>{label}</Text> */}
       <TextInput 
         style={error ? styles.inputError : styles.input}
         value={input}

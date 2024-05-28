@@ -31,7 +31,7 @@ export default App;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.Os === 'android' ? StatusBar.currentHeight: 0,
+    marginTop: Platform.OS === 'android' ? StatusBar.currentHeight: 0,
     flex: 1
   }
 })

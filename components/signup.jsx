@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { Pressable, StyleSheet, Text, ToastAndroid, View, Platform, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import InputForm from './inputForm'
 import SubmitButton from './submitButton'
 import { useDispatch } from 'react-redux'
@@ -16,6 +16,17 @@ const Signup = ({ navigation }) => {
     const [errorConfirmPassword, setErrorConfirmPassword] = useState("")
     const dispatch = useDispatch()
     const [triggerSignUp, result] = useSignUpMutation()
+    useEffect(() => {
+        if (result.isSuccess) {
+            if(Platform.OS === 'android'){
+                ToastAndroid.showWithGravity("¡El registro se ha realizado con éxito!", ToastAndroid.SHORT, ToastAndroid.TOP)
+            }
+            else {
+                Alert.alert("¡El registro se ha realizado con éxito!")
+            }
+            navigation.navigate('Login')
+        }
+    }, [result])
     const onSubmit = () => {
         try {
             setErrorMail("")
@@ -64,6 +75,10 @@ const Signup = ({ navigation }) => {
                         isSecure={true}
                     />
                 </View>
+                {/* {signUpSuccess ? 
+                    <Text style={styles.signUpSuccess}>¡Se ha registrado con éxito!</Text> 
+                    : null
+                } */}
                 <SubmitButton
                     onPress={onSubmit}
                     title="Registrarme"
@@ -122,5 +137,10 @@ const styles = StyleSheet.create({
     productBy: {
         fontSize: 10,
         color: colors.gray
+    },
+    signUpSuccess: {
+        fontSize: 16,
+        color: colors.success,
+        fontWeight: "bold"
     }
 })
