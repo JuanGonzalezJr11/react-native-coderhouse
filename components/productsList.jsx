@@ -4,6 +4,7 @@ import ProductItem from "./productItem";
 import Search from "./search";
 import { colors } from "../constants/colors";
 import { useGetProductsByCategoryQuery } from "../services/shopService";
+import { useDispatch } from "react-redux";
 
 const ProductsList = ({
   navigation,
@@ -14,6 +15,7 @@ const ProductsList = ({
   const [error, setError] = useState("");
   const {item: category} = route.params
   const {data: productsFetched, error: errorFromFetched, isLoading} = useGetProductsByCategoryQuery(category)
+  const dispatch = useDispatch()
   // El "useEffect" tiene 3 formas de ejecutarse, cuando tiene "[]" hace que se ejecute una sola vez cuando carga el componente, cuando tiene "[nombredevariable]" que indica que cada vez que inicia o esa variable sufra un cambio se ejecutara ese useEffect, o bien sin nada, que hace que se ejecute el useEffect cada vez que cualquiera de las variables cambie.
   useEffect(() => {
     regex = /\d/;

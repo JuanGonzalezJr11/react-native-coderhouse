@@ -1,14 +1,24 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native"
-import React from "react"
+import React, { useEffect } from "react"
 // import categories from "../data/categories.json"
 import { colors } from "../constants/colors"
 import { useDispatch, useSelector } from "react-redux"
-import { setCategorySelected } from "../features/shopSlice"
+import { setCategorySelected, setBottomTabSelected } from "../features/shopSlice"
 import { useGetCategoriesQuery } from "../services/shopService"
+import { useFocusEffect } from "@react-navigation/native"
 
 const CategoriesList = ({ navigation }) => {
+  const bottomTabSelected = useSelector(state => state.shopReducer.value.bottomTabSelected)
   const {data: categories, error, isLoading} = useGetCategoriesQuery()
   const dispatch = useDispatch()
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(setBottomTabSelected("Categorias"))
+    }, [])
+  )
+  // useEffect(() => {
+  //   dispatch(setBottomTabSelected("Categorias"))
+  // }, [bottomTabSelected])
   const handleNavigate = (item) => {
     dispatch(setCategorySelected(item))
     navigation.navigate("ProductsList", { item })

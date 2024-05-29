@@ -18,7 +18,7 @@ const BottomTabNavigator = () => {
                     return <Header route={route} />
                 },
                 tabBarShowLabel: false,
-                tabBarStyle: styles.tabBar
+                tabBarStyle: styles.tabBar,
             })}
         >
             <Tab.Screen

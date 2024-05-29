@@ -1,21 +1,34 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 // import cartData from '../data/cart.json'
 import CartItem from "./cartItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usePostOrderMutation } from "../services/shopService";
 import { colors } from '../constants/colors'
+import { setBottomTabSelected, setCategorySelected } from '../features/shopSlice'
+import { useFocusEffect } from "@react-navigation/native";
 
 const Cart = () => {
+  const bottomTabSelected = useSelector(state => state.shopReducer.value.bottomTabSelected)
   const { items: cartData, total } = useSelector(
     (state) => state.cartReducer.value
   );
   const { user } = useSelector((state) => state.authReducer.value)
+  const dispatch = useDispatch()
   const [triggerPostOrder, result] = usePostOrderMutation()
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(setBottomTabSelected("Carrito"))
+      // dispatch(setCategorySelected(""))
+    }, [])
+  )
+  // useEffect(() => {
+  //   dispatch(setBottomTabSelected("Carrito"))
+  //   dispatch(setCategorySelected(""))
+  // }, [bottomTabSelected])
   const onConfirmOrder = () => {
     triggerPostOrder({ items: cartData, createdAt: new Date().toLocaleString(), user: user, total })
   }
-  // const total = cartData.reduce((acumulador, currentItem) => acumulador += currentItem.price * currentItem.quantity, 0)
   return (
     <View style={styles.mainContainer}>
       {Array.isArray(cartData) && cartData.length > 0 ? (

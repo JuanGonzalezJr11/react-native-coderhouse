@@ -11,7 +11,8 @@ const Navigator = () => {
     const { user } = useSelector(state => state.authReducer.value)
     return (
         <NavigationContainer>
-            {user ? <BottomTabNavigator /> : <AuthStackNavigator />}
+            {/* {user ? <BottomTabNavigator /> : <AuthStackNavigator />} */}
+            <BottomTabNavigator />
         </NavigationContainer>
     )
 }
