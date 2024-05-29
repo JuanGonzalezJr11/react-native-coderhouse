@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        color: colors.primary,
+        color: colors.secondary,
         fontWeight: "bold"
     },
     text: {
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     },
     subLink: {
         textDecorationLine: 'underline',
-        color: colors.primary,
+        color: colors.secondary,
         textAlign: "center"
     },
     footer: {

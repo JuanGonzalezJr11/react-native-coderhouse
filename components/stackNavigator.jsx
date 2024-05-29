@@ -6,25 +6,13 @@ import ProductsList from './productsList'
 import ItemDetail from './itemDetail'
 
 const Stack = createNativeStackNavigator()
-const StackNavigator = () => {
+const StackNavigator = ({ navigation }) => {
   return (
     <Stack.Navigator
         initialRouteName='CategoriesList'
         screenOptions={{
             headerShown: false
         }}
-        // screenOptions={
-        //     ({ route }) => (
-        //         {
-        //             header: () => {
-        //                 const isCategoriesList = route.name === "CategoriesList";
-        //                 const title = isCategoriesList ? "Categorías" 
-        //                 : route.name === "ProductList" ? route.name.item : "Detalles del producto"
-        //                 return <Header title={title} showBackButton={!isCategoriesList}/>
-        //             }
-        //         }
-        //     )
-        // }
     >
         <Stack.Screen
             component={CategoriesList}

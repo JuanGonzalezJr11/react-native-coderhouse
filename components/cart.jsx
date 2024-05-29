@@ -5,11 +5,10 @@ import CartItem from "./cartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { usePostOrderMutation } from "../services/shopService";
 import { colors } from '../constants/colors'
-import { setBottomTabSelected, setCategorySelected } from '../features/shopSlice'
+import { setBottomTabSelected } from '../features/shopSlice'
 import { useFocusEffect } from "@react-navigation/native";
 
-const Cart = () => {
-  const bottomTabSelected = useSelector(state => state.shopReducer.value.bottomTabSelected)
+const Cart = ({ navigation }) => {
   const { items: cartData, total } = useSelector(
     (state) => state.cartReducer.value
   );
@@ -19,7 +18,6 @@ const Cart = () => {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(setBottomTabSelected("Carrito"))
-      // dispatch(setCategorySelected(""))
     }, [])
   )
   // useEffect(() => {
@@ -44,7 +42,10 @@ const Cart = () => {
             />
             <Text style={styles.textPrice}>${total}</Text>
           </View>
-          <View style={styles.totalContainer}>
+          <View style={styles.buttonContainer}>
+            <Pressable style={styles.buttonSecondary} onPress={() => navigation.goBack()}>
+              <Text style={styles.textButtonSecondary}>Continuar comprando</Text>
+            </Pressable>
             <Pressable style={styles.button} onPress={onConfirmOrder}>
               <Text style={styles.textButton}>Finalizar compra</Text>
             </Pressable>
@@ -63,15 +64,16 @@ export default Cart;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
-    margin: 10
+    backgroundColor: colors.white,
+    flex: 1
   },
   container: {
     flex: 1,
     justifyContent:"space-between"
   },
-  totalContainer: {
-    marginHorizontal: 15
+  buttonContainer: {
+    marginHorizontal: 15,
+    marginBottom: 20
   },
   textPrice: {
     fontSize: 20,
@@ -105,8 +107,30 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   textButton: {
-      fontSize: 20,
-      fontWeight: "bold",
-      color: colors.white
+    fontSize: 20,
+    fontWeight: "bold",
+    color: colors.white
+  },
+  buttonSecondary: {
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: colors.secondary,
+    borderRadius: 6,
+    alignItems: "center",
+    padding: 10,
+    shadowColor: colors.black,
+    shadowOffset: {
+        width: 0,
+        height: 3
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+    marginTop: 10
+  },
+  textButtonSecondary: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: colors.secondary
   }
 });

@@ -5,6 +5,8 @@ import Search from "./search";
 import { colors } from "../constants/colors";
 import { useGetProductsByCategoryQuery } from "../services/shopService";
 import { useDispatch } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
+import { setBottomTabSelected } from "../features/shopSlice";
 
 const ProductsList = ({
   navigation,
@@ -17,6 +19,11 @@ const ProductsList = ({
   const {data: productsFetched, error: errorFromFetched, isLoading} = useGetProductsByCategoryQuery(category)
   const dispatch = useDispatch()
   // El "useEffect" tiene 3 formas de ejecutarse, cuando tiene "[]" hace que se ejecute una sola vez cuando carga el componente, cuando tiene "[nombredevariable]" que indica que cada vez que inicia o esa variable sufra un cambio se ejecutara ese useEffect, o bien sin nada, que hace que se ejecute el useEffect cada vez que cualquiera de las variables cambie.
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(setBottomTabSelected("Categorias"))
+    }, [])
+  )
   useEffect(() => {
     regex = /\d/;
     const hasDigits = regex.test(keyword);
@@ -61,6 +68,7 @@ export default ProductsList;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     width: "100%",
     paddingVertical: 10,
     alignItems: "center",

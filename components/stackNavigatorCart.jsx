@@ -6,11 +6,6 @@ import { setBottomTabSelected, setCategorySelected } from '../features/shopSlice
 
 const Stack = createNativeStackNavigator()
 const StackNavigatorCart = () => {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(setBottomTabSelected("Carrito"))
-    dispatch(setCategorySelected(""))
-  })
   return (
     <Stack.Navigator
         initialRouteName="Cart"

@@ -15,11 +15,8 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
           onChangeText={setKeyword}
         />
         <Pressable onPress={() => onSearch(keyword)}>
-          <FontAwesome name="search" size={24} color={colors.black} />
+          <FontAwesome name="search" size={24} color={colors.primary} />
         </Pressable>
-        {/* <Pressable onPress={goBack}>
-          <Ionicons name="arrow-back" size={24} color={colors.black} />
-        </Pressable> */}
       </View>
     </View>
   );
@@ -33,13 +30,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    marginBottom: 20,
+    marginVertical: 10,
     width: "100%",
   },
   input: {
-    fontSize: 18,
+    fontSize: 20,
     borderBottomWidth: 1,
-    borderBottomColor: colors.black,
-    width: "70%",
+    borderBottomColor: colors.primary,
+    width: "90%",
   },
 });

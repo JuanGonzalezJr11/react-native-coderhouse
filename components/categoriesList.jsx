@@ -14,6 +14,7 @@ const CategoriesList = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(setBottomTabSelected("Categorias"))
+      dispatch(setCategorySelected(""))
     }, [])
   )
   // useEffect(() => {
@@ -46,6 +47,7 @@ export default CategoriesList;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     width: "100%",
     paddingVertical: 10,
     alignItems: "center",

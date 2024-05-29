@@ -10,23 +10,20 @@ import { colors } from "../constants/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import { HeaderBackButton } from "@react-navigation/elements";
 
-const Header = ({ title, showBackButton }) => {
+const Header = ({ navigation }) => {
   const bottomTabSelected = useSelector(
     (state) => state.shopReducer.value.bottomTabSelected
   );
   const categorySelected = useSelector(
     (state) => state.shopReducer.value.categorySelected
   );
-  // const itemIdSelected = useSelector(state => state.shopReducer.value.itemIdSelected)
   const { height, width } = useWindowDimensions();
-  const navigation = useNavigation();
-  console.log(categorySelected);
-  console.log(bottomTabSelected);
   return (
     <View style={styles.container}>
-      {showBackButton && (
-        <Pressable onPress={() => navigation.goBack()}>
+      {bottomTabSelected ==="Categorias" && categorySelected !== "" && (
+        <Pressable onPress={() => navigation.goBack()} style={styles.pressable}>
           <AntDesign name="left" size={24} color={colors.white} />
         </Pressable>
       )}
@@ -34,11 +31,7 @@ const Header = ({ title, showBackButton }) => {
         {bottomTabSelected === "Categorias" && categorySelected !== ""
           ? categorySelected
           : bottomTabSelected}
-        {/* {categorySelected !== "" ? categorySelected : bottomTabSelected} */}
       </Text>
-      {/* {showBackButton && (
-        <Text style={styles.textInvisible}>.</Text>
-      )} */}
     </View>
   );
 };
@@ -46,16 +39,6 @@ const Header = ({ title, showBackButton }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: colors.white,
-  },
-  textSm: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: colors.white,
-  },
   container: {
     marginBottom: 0,
     justifyContent: "space-around",
@@ -65,7 +48,18 @@ const styles = StyleSheet.create({
     height: 70,
     flexDirection: "row",
   },
-  textInvisible: {
-    color: colors.secondary,
+  pressable: {
+    position: "absolute",
+    left: 16
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: colors.white,
+  },
+  textSm: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.white,
   },
 });

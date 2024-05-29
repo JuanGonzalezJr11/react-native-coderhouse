@@ -4,7 +4,6 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { colors } from '../constants/colors';
 
 const OrderItem = ({ order }) => {
-    // const total = order.items.reduce((acumulador, currentItem) => acumulador += currentItem.price * currentItem.quantity, 0)
     return (
         <View style={styles.card} onPress={() => {}}>
             <View style={styles.textContainer}>
@@ -28,7 +27,8 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        marginVertical: 5
     },
     text: {
         fontSize: 16
