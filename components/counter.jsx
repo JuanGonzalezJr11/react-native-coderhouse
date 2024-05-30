@@ -5,7 +5,6 @@ import {
   assignValue,
   decrement,
   increment,
-  incrementByAmount,
 } from "../features/counter/counterSlice";
 import { colors } from "../constants/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -25,6 +24,10 @@ const Counter = () => {
     dispatch(decrement(textInput));
     setTextInput(textInput)
   };
+  const forKeyboard = (text) => {
+    dispatch(assignValue(text))
+    setTextInput(text)
+  }
   return (
     <View style={styles.container}>
       <Pressable
@@ -36,7 +39,7 @@ const Counter = () => {
       </Pressable>
       <TextInput
         style={styles.textInput}
-        onChangeText={setTextInput}
+        onChangeText={(text) => forKeyboard(text)}
         value={textInput}
       />
       <Pressable style={styles.button} onPress={add}>
