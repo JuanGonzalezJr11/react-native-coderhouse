@@ -3,25 +3,25 @@ import React, { useEffect } from "react";
 import OrderItem from "./orderItem";
 import { useGetOrderByUserQuery } from "../services/shopService";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setBottomTabSelected,
-  setCategorySelected,
-} from "../features/shopSlice";
+import { setBottomTabSelected } from "../features/shopSlice";
 import { useFocusEffect } from "@react-navigation/native";
 import { colors } from "../constants/colors";
+import LoadingScreen from "./loadingScreen";
 
 const Order = () => {
   const { user } = useSelector((state) => state.authReducer.value);
-  const { data } = useGetOrderByUserQuery(user);
-  const bottomTabSelected = useSelector(
-    (state) => state.shopReducer.value.bottomTabSelected
-  );
+  const { data, refetch, isLoading, isError } = useGetOrderByUserQuery(user);
+  console.log(data)
   const dispatch = useDispatch();
   useFocusEffect(
     React.useCallback(() => {
       dispatch(setBottomTabSelected("Ordenes"));
+      refetch()
     }, [])
   );
+  if (isLoading) {
+    return <LoadingScreen />
+  }
   return (
     <View style={styles.container}>
       {Array.isArray(data) && data.length > 0 ? (
@@ -30,6 +30,7 @@ const Order = () => {
           renderItem={({ item }) => {
             return <OrderItem order={item} />;
           }}
+          showsVerticalScrollIndicator={false}
         />
       ) : (
         <View style={styles.containerOrdersEmpty}>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flex: 1,
-    paddingTop: 10
+    paddingTop: 10,
   },
   containerOrdersEmpty: {
     flex: 1,
@@ -58,5 +59,5 @@ const styles = StyleSheet.create({
   textOrdersEmpty: {
     fontSize: 16,
     marginTop: 10,
-  }
+  },
 });

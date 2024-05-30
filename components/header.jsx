@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.secondary,
     width: "100%",
-    height: 70,
+    height: 60,
     flexDirection: "row",
   },
   pressable: {

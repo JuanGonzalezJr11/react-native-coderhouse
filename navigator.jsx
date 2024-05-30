@@ -5,14 +5,15 @@ import { NavigationContainer } from '@react-navigation/native'
 import BottomTabNavigator from './components/bottomTabNavigator'
 import AuthStackNavigator from './components/authStack'
 import { useSelector } from 'react-redux'
+import ErrorScreen from './components/errorScreen'
 
 const Stack = createNativeStackNavigator()
 const Navigator = () => {
     const { user } = useSelector(state => state.authReducer.value)
     return (
         <NavigationContainer>
-            {user ? <BottomTabNavigator /> : <AuthStackNavigator />}
-            {/* <BottomTabNavigator /> */}
+            {/* {user ? <BottomTabNavigator /> : <AuthStackNavigator />} */}
+            <BottomTabNavigator />
         </NavigationContainer>
     )
 }

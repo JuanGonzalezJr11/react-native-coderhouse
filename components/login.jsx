@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import InputForm from './inputForm'
 import SubmitButton from './submitButton'
@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setUser } from '../features/userSlice'
 import { colors } from '../constants/colors'
 import { signInSchema } from '../validations/authSchema'
+import LoadingScreen from './loadingScreen'
 
 const Login = ({ navigation }) => {
     const [triggerSignIn, result] = useSignInMutation()
@@ -60,10 +61,18 @@ const Login = ({ navigation }) => {
             })
         }
     }
+    if (result.isLoading) {
+        return <LoadingScreen />
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
-                <Text style={styles.title}>¡Bienvenido!</Text>
+                <Image 
+                    resizeMode='contain'
+                    style={styles.image}
+                    source={{uri: 'https://acdn.mitiendanube.com/stores/001/338/283/themes/common/ogimage-1922163110-1603407980-14878f0abb4a6962623d65281064fb4a1603407980.jpg?0'}}
+                />
+                {/* <Text style={styles.title}>¡Bienvenido!</Text> */}
                 <View style={styles.inputContainer}>
                     <InputForm
                         label={"Email..."}
@@ -136,5 +145,9 @@ const styles = StyleSheet.create({
     productBy: {
         fontSize: 10,
         color: colors.gray
+    },
+    image: {
+        height: 250,
+        width: "70%",
     }
 })

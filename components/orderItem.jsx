@@ -7,7 +7,7 @@ const OrderItem = ({ order }) => {
     return (
         <View style={styles.card} onPress={() => {}}>
             <View style={styles.textContainer}>
-                <FontAwesome5 name="clipboard-list" size={24} color={colors.black} />
+                <FontAwesome5 name="clipboard-list" size={24} color={colors.secondary} />
                 <Text style={styles.text}>{order.createdAt}</Text>
                 <Text style={styles.textPrice}>${order.total}</Text>
             </View>

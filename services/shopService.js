@@ -34,6 +34,13 @@ export const shopApi = createApi({
             query: (user) => `orders.json?orderBy="user"&equalTo="${user}"`,
             transformResponse: (response) => {
                 const responseTransformed = Object.values(response)
+                const parseDate = (dateString) => {
+                    const [datePart, timePart] = dateString.split(', ')
+                    const [day, month, year] = datePart.split('/').map(Number)
+                    const [hour, minute, second] = timePart.split(':').map(Number)
+                    return new Date(year, month - 1, day, hour, minute, second)
+                }
+                responseTransformed.sort((a, b) => parseDate(b.createdAt) - parseDate(a.createdAt));
                 return responseTransformed
             }
         })

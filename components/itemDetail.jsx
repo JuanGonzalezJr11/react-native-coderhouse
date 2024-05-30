@@ -13,10 +13,13 @@ import React, { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { colors } from "../constants/colors";
 import { useGetProductByIdQuery } from "../services/shopService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCartItem } from "../features/cartSlice";
 import { useFocusEffect } from "@react-navigation/native";
 import { setBottomTabSelected } from "../features/shopSlice";
+import LoadingScreen from "./loadingScreen";
+import Counter from "./counter";
+import { reset } from "../features/counter/counterSlice";
 
 const ItemDetail = ({ route, navigation }) => {
   // const [product, setProduct] = useState(null)
@@ -29,6 +32,8 @@ const ItemDetail = ({ route, navigation }) => {
     isLoading,
   } = useGetProductByIdQuery(itemIdSelected);
   const dispatch = useDispatch();
+  const quantitySelected = useSelector((state) => state.counterReducer.value)
+  const [messageError, setMessageError] = useState("") 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(setBottomTabSelected("Categorias"));
@@ -39,20 +44,30 @@ const ItemDetail = ({ route, navigation }) => {
     else setOrientation("portrait");
   }, [width, height]);
   const handleAddCart = () => {
-    dispatch(addCartItem({ ...product, quantity: 1 }));
-    if (Platform.OS === "android") {
-      ToastAndroid.showWithGravity(
-        `El producto ${product.title} x${product.quantity} se ha añadido al carrito.`,
-        ToastAndroid.SHORT,
-        ToastAndroid.BOTTOM
-      );
-    } else {
-      Alert.alert(
-        `El producto ${product.title} x${product.quantity} se ha añadido al carrito.`
-      );
+    if (quantitySelected === 0){
+      setMessageError("Debe añadir al menos una unidad al carrito.")
     }
-    navigation.navigate("Cart");
-  };
+    else {
+      setMessageError("")
+      dispatch(addCartItem({ ...product, quantity: quantitySelected }))
+      dispatch(reset())
+      if (Platform.OS === "android") {
+        ToastAndroid.showWithGravity(
+          `El producto ${product.title} x${quantitySelected} se ha añadido al carrito.`,
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM
+        );
+      } else {
+        Alert.alert(
+          `El producto ${product.title} x${quantitySelected} se ha añadido al carrito.`
+        );
+      }
+      navigation.navigate("Cart");
+    }
+  }
+  if (isLoading) {
+    return <LoadingScreen />
+  }
   return (
     <View style={styles.mainContainer}>
       {product ? (
@@ -82,6 +97,10 @@ const ItemDetail = ({ route, navigation }) => {
             <Text style={styles.title}>{product.title}</Text>
             <Text style={styles.description}>{product.description}</Text>
             <Text style={styles.price}>${product.price}</Text>
+            <Counter />
+            {messageError !== "" 
+            ? <Text style={styles.error}>{messageError}</Text> 
+            : null}
             <Pressable style={styles.button} onPress={handleAddCart}>
               <Text style={styles.textButton}>Añadir al carrito</Text>
             </Pressable>
@@ -145,8 +164,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "right",
+    textAlign: "right"
   },
   button: {
     backgroundColor: colors.success,
@@ -167,4 +185,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.white,
   },
+  error: {
+    color: colors.error,
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: "center",
+    marginBottom: 10
+  }
 });

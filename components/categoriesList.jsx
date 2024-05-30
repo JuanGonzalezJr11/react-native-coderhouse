@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
   pressable: {
     alignItems: "center",
     backgroundColor: colors.primary,
+    borderWidth: 1,
+    borderColor: colors.secondary,
     width: "100%",
     paddingVertical: 15,
     marginVertical: 10,
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     fontSize: 16,
-    color: colors.white,
+    color: colors.black,
     paddingHorizontal: 10,
   },
 });

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, ToastAndroid, View, Platform, Alert } from 'react-native'
+import { Pressable, StyleSheet, Text, ToastAndroid, View, Platform, Alert, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import InputForm from './inputForm'
 import SubmitButton from './submitButton'
@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useSignUpMutation } from '../services/authService'
 import { signUpSchema } from '../validations/authSchema'
 import { colors } from '../constants/colors'
+import LoadingScreen from './loadingScreen'
 
 const Signup = ({ navigation }) => {
     const [email, setEmail] = useState("")
@@ -52,9 +53,17 @@ const Signup = ({ navigation }) => {
             })
         }
     }
+    if (result.isLoading) {
+        return <LoadingScreen />
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
+                <Image 
+                    resizeMode='contain'
+                    style={styles.image}
+                    source={{uri: 'https://acdn.mitiendanube.com/stores/001/338/283/themes/common/logo-1324858621-1599503828-2e3d38e5e32ae011ab1237994ed8a6e41599503829-480-0.webp'}}
+                />
                 <Text style={styles.title}>Creación de cuenta</Text>
                 <View style={styles.inputContainer}>
                     <InputForm
@@ -142,5 +151,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: colors.success,
         fontWeight: "bold"
+    },
+    image: {
+        height: 80,
+        width: "70%"
     }
 })

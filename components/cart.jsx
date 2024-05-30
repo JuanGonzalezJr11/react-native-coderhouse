@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import React, { useEffect } from "react";
-// import cartData from '../data/cart.json'
+import React, { useEffect, useState } from "react";
 import CartItem from "./cartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { usePostOrderMutation } from "../services/shopService";
 import { colors } from '../constants/colors'
 import { setBottomTabSelected } from '../features/shopSlice'
 import { useFocusEffect } from "@react-navigation/native";
+import ModalConfirmOrder from "./modalConfirmOrder";
+import { clearCartItem } from "../features/cartSlice";
 
 const Cart = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false)
   const { items: cartData, total } = useSelector(
     (state) => state.cartReducer.value
   );
@@ -20,12 +22,21 @@ const Cart = ({ navigation }) => {
       dispatch(setBottomTabSelected("Carrito"))
     }, [])
   )
-  // useEffect(() => {
-  //   dispatch(setBottomTabSelected("Carrito"))
-  //   dispatch(setCategorySelected(""))
-  // }, [bottomTabSelected])
   const onConfirmOrder = () => {
-    triggerPostOrder({ items: cartData, createdAt: new Date().toLocaleString(), user: user, total })
+    setModalVisible(true)
+  }
+  const handleCancel = () => {
+    setModalVisible(false)
+  }
+  const handleConfirm = async () => {
+    try {
+      await triggerPostOrder({ items: cartData, createdAt: new Date().toLocaleString(), user: user, total })
+      dispatch(clearCartItem())
+      setModalVisible(false)
+      navigation.navigate('Orders')
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <View style={styles.mainContainer}>
@@ -50,6 +61,7 @@ const Cart = ({ navigation }) => {
               <Text style={styles.textButton}>Finalizar compra</Text>
             </Pressable>
           </View>
+          <ModalConfirmOrder modalVisible={modalVisible} handleCancel={handleCancel} handleConfirm={handleConfirm}/>
         </View>
       ) : (
         <View style={styles.containerCartEmpty}>

@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { TextInput } from 'react-native-web'
 import { colors } from '../constants/colors'
 
 const InputForm = ({

@@ -7,6 +7,7 @@ import { useGetProductsByCategoryQuery } from "../services/shopService";
 import { useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { setBottomTabSelected } from "../features/shopSlice";
+import LoadingScreen from "./loadingScreen";
 
 const ProductsList = ({
   navigation,
@@ -31,9 +32,6 @@ const ProductsList = ({
       setError("No debe usar números para su búsqueda.");
       return;
     }
-    // const productsPreFiltered = products.filter(
-    //   (product) => product.category === category
-    // );
     if(!isLoading) {
       const productsFilter = productsFetched.filter((product) =>
         product.title.toLowerCase().includes(keyword.toLowerCase())
@@ -42,6 +40,9 @@ const ProductsList = ({
       setError("")
     }
   }, [keyword, category, productsFetched]);
+  if (isLoading) {
+    return <LoadingScreen />
+  }
   return (
     <View style={styles.container}>
       <Search
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     width: "100%",
-    paddingVertical: 10,
+    paddingVertical: 5,
     alignItems: "center",
     flex: 1,
     flexDirection: "column"

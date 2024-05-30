@@ -6,18 +6,16 @@ import { colors } from "../constants/colors";
 const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
   const [keyword, setKeyword] = useState("");
   return (
-    <View>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="Buscar..."
-          value={keyword}
-          onChangeText={setKeyword}
-        />
-        <Pressable onPress={() => onSearch(keyword)}>
-          <FontAwesome name="search" size={24} color={colors.primary} />
-        </Pressable>
-      </View>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Buscar..."
+        value={keyword}
+        onChangeText={setKeyword}
+      />
+      <Pressable onPress={() => onSearch(keyword)}>
+        <FontAwesome name="search" size={24} color={colors.primary} />
+      </Pressable>
     </View>
   );
 };
@@ -31,12 +29,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     marginVertical: 10,
-    width: "100%",
+    width: "100%"
   },
   input: {
     fontSize: 20,
     borderBottomWidth: 1,
     borderBottomColor: colors.primary,
-    width: "90%",
+    width: "70%",
+    padding: 5
   },
 });

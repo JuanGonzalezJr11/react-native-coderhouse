@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         marginVertical: 10,
         borderRadius: 5,
+        borderWidth: 1,
+        borderColor: colors.secondary,
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     text: {
         fontWeight: "bold",
         fontSize: 16,
-        color: colors.white,
+        color: colors.black,
         paddingHorizontal: 10
     },
     image: {
