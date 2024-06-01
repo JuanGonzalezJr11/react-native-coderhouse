@@ -6,21 +6,23 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { colors } from "../constants/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch } from "react-redux";
 import { removeCartItem } from "../features/cartSlice";
 import ModalDeleteItem from "./modalDeleteItem";
-import { useFocusEffect } from "@react-navigation/native";
 
-const CartItem = ({ cartItem }) => {
-  const [options, setOptions] = useState(false);
+const CartItem = ({ cartItem, setModalDeleteVisible }) => {
+  const [options, setOptions] = useState({
+    coordinates: false,
+    showOptions: false,
+  });
   const dispatch = useDispatch();
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const [modalVisible, setModalVisible] = useState(false);
   const visibleOption = () => {
-    setOptions(!options);
+    setOptions({ coordinates: !options.coordinates, showOptions: true });
   };
   const slideInterpolate = slideAnimation.interpolate({
     inputRange: [0, 1],
@@ -30,26 +32,21 @@ const CartItem = ({ cartItem }) => {
     setModalVisible(true);
   };
   const handleDelete = () => {
-    dispatch(removeCartItem(cartItem))
-    setModalVisible(false)
-  }
+    dispatch(removeCartItem(cartItem));
+    setModalVisible(false);
+  };
   const handleCancel = () => {
-    setModalVisible(false)
-    console.log(options)
-  }
+    setModalVisible(false);
+    setOptions({...options, showOptions: false})
+  };
   useEffect(() => {
     Animated.timing(slideAnimation, {
-      toValue: options ? 1 : 0,
+      toValue: options.coordinates ? 1 : 0,
       duration: 300,
       easing: Easing.ease,
       useNativeDriver: false,
     }).start();
-  }, [options]);
-  // useFocusEffect(() => {
-  //   React.useCallback(() => {
-  //     setOptions(false)
-  //   })
-  // }, [])
+  }, [options.coordinates]);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.card} onPress={() => {}}>
@@ -57,7 +54,7 @@ const CartItem = ({ cartItem }) => {
           <Pressable
             style={styles.textPressable}
             onPress={visibleOption}
-            onBlur={() => setOptions(false)}
+            onBlur={() => setOptions({...options, coordinates: false})}
           >
             <Text style={styles.textTitle}>
               {cartItem.title} x{cartItem.quantity}
@@ -72,9 +69,11 @@ const CartItem = ({ cartItem }) => {
           { transform: [{ translateX: slideInterpolate }] },
         ]}
       >
-        <Pressable style={styles.deleteButton} onPress={showModalDelete}>
-          <AntDesign name="delete" size={28} color={colors.white} />
-        </Pressable>
+        {options.showOptions && (
+          <Pressable style={styles.deleteButton} onPress={showModalDelete}>
+            <AntDesign name="delete" size={28} color={colors.white} />
+          </Pressable>
+        )}
       </Animated.View>
       <ModalDeleteItem
         modalVisible={modalVisible}
@@ -92,7 +91,7 @@ export default CartItem;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    width: "100%"
+    width: "100%",
   },
   card: {
     borderColor: colors.primary,

@@ -21,7 +21,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/lacasadelceliacologo1.jpg"
     },
     "plugins": [
       "expo-font"

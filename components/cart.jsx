@@ -8,9 +8,11 @@ import { setBottomTabSelected } from '../features/shopSlice'
 import { useFocusEffect } from "@react-navigation/native";
 import ModalConfirmOrder from "./modalConfirmOrder";
 import { clearCartItem } from "../features/cartSlice";
+import ModalDeleteItem from "./modalDeleteItem";
 
 const Cart = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalConfirmVisible, setModalConfirmVisible] = useState(false)
+  const [modalDeleteVisible, setModalDeleteVisible] = useState(false)
   const { items: cartData, total } = useSelector(
     (state) => state.cartReducer.value
   );
@@ -23,21 +25,24 @@ const Cart = ({ navigation }) => {
     }, [])
   )
   const onConfirmOrder = () => {
-    setModalVisible(true)
+    setModalConfirmVisible(true)
   }
   const handleCancel = () => {
-    setModalVisible(false)
+    setModalConfirmVisible(false)
   }
   const handleConfirm = async () => {
     try {
       await triggerPostOrder({ items: cartData, createdAt: new Date().toLocaleString(), user: user, total })
       dispatch(clearCartItem())
-      setModalVisible(false)
+      setModalConfirmVisible(false)
       navigation.navigate('Orders')
     } catch (error) {
       console.error(error)
     }
   }
+  // const handleModalDeleteCancel = () => {
+  //   setModalDeleteVisible(false)
+  // }
   return (
     <View style={styles.mainContainer}>
       {Array.isArray(cartData) && cartData.length > 0 ? (
@@ -55,13 +60,15 @@ const Cart = ({ navigation }) => {
           </View>
           <View style={styles.buttonContainer}>
             <Pressable style={styles.buttonSecondary} onPress={() => navigation.goBack()}>
+            {/* <Pressable style={styles.buttonSecondary} onPress={() => setModalDeleteVisible(true)}> */}
               <Text style={styles.textButtonSecondary}>Continuar comprando</Text>
             </Pressable>
             <Pressable style={styles.button} onPress={onConfirmOrder}>
               <Text style={styles.textButton}>Finalizar compra</Text>
             </Pressable>
           </View>
-          <ModalConfirmOrder modalVisible={modalVisible} handleCancel={handleCancel} handleConfirm={handleConfirm}/>
+          <ModalConfirmOrder modalVisible={modalConfirmVisible} handleCancel={handleCancel} handleConfirm={handleConfirm}/>
+          {/* <ModalDeleteItem modalVisible={modalDeleteVisible} handleCancel={handleModalDeleteCancel}/> */}
         </View>
       ) : (
         <View style={styles.containerCartEmpty}>
