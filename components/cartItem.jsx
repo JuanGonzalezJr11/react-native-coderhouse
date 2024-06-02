@@ -9,11 +9,13 @@ import {
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { colors } from "../constants/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeCartItem } from "../features/cartSlice";
 import ModalDeleteItem from "./modalDeleteItem";
+import { reset } from "../features/counter/counterSlice";
 
 const CartItem = ({ cartItem, setModalDeleteVisible }) => {
+  const quantitySelected = useSelector((state) => state.counterReducer.value)
   const [options, setOptions] = useState({
     coordinates: false,
     showOptions: false,
@@ -32,8 +34,11 @@ const CartItem = ({ cartItem, setModalDeleteVisible }) => {
     setModalVisible(true);
   };
   const handleDelete = () => {
-    dispatch(removeCartItem(cartItem));
+    const itemRemove = {...cartItem, quantity: quantitySelected}
+    dispatch(removeCartItem(itemRemove));
     setModalVisible(false);
+    setOptions({...options, showOptions: false})
+    dispatch(reset())
   };
   const handleCancel = () => {
     setModalVisible(false);

@@ -11,7 +11,7 @@ const ModalDeleteItem = ({ modalVisible, item, quantity, handleDelete, handleCan
           <Text style={styles.text}>
             ¿Está seguro que desea eliminar {item}?
           </Text>
-          {Number(quantity) < 1 && (
+          {Number(quantity) > 1 && (
             <Counter />
           )}
           <View style={styles.buttonsContainer}>
