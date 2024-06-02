@@ -12,7 +12,7 @@ const ModalDeleteItem = ({ modalVisible, item, quantity, handleDelete, handleCan
             ¿Está seguro que desea eliminar {item}?
           </Text>
           {Number(quantity) > 1 && (
-            <Counter />
+            <Counter maxQuantity={quantity}/>
           )}
           <View style={styles.buttonsContainer}>
             <Pressable onPress={handleDelete} style={styles.presseableDelete}>

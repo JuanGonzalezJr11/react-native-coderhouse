@@ -22,7 +22,6 @@ import Counter from "./counter";
 import { reset } from "../features/counter/counterSlice";
 
 const ItemDetail = ({ route, navigation }) => {
-  // const [product, setProduct] = useState(null)
   const [orientation, setOrientation] = useState("portrait");
   const { width, height } = useWindowDimensions();
   const { itemIdSelected } = route.params;

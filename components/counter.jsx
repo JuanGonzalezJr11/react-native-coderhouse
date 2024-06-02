@@ -9,7 +9,7 @@ import {
 import { colors } from "../constants/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-const Counter = () => {
+const Counter = ({ maxQuantity }) => {
   const count = useSelector((state) => state.counterReducer.value);
   const dispatch = useDispatch();
   const [textInput, setTextInput] = useState(0);
@@ -18,20 +18,24 @@ const Counter = () => {
   }, [count]);
   const add = () => {
     dispatch(increment(textInput));
-    setTextInput(textInput)
+    setTextInput(textInput);
   };
   const subtract = () => {
     dispatch(decrement(textInput));
-    setTextInput(textInput)
+    setTextInput(textInput);
   };
   const forKeyboard = (text) => {
-    dispatch(assignValue(text))
-    setTextInput(text)
-  }
+    dispatch(assignValue(text));
+    setTextInput(text);
+  };
   return (
     <View style={styles.container}>
       <Pressable
-        style={textInput !== "0" && Number(textInput)? styles.button : styles.buttonDisabled}
+        style={
+          textInput !== "0" && Number(textInput)
+            ? styles.button
+            : styles.buttonDisabled
+        }
         onPress={subtract}
         disabled={textInput !== "0" && Number(textInput) !== 0 ? false : true}
       >
@@ -42,7 +46,13 @@ const Counter = () => {
         onChangeText={(text) => forKeyboard(text)}
         value={textInput}
       />
-      <Pressable style={styles.button} onPress={add}>
+      <Pressable
+        style={
+          textInput === maxQuantity ? styles.buttonDisabled : styles.button
+        }
+        onPress={add}
+        disabled={textInput === maxQuantity ? true : false}
+      >
         <AntDesign name="plus" size={25} color={colors.white} />
       </Pressable>
     </View>

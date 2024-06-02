@@ -40,9 +40,6 @@ const Cart = ({ navigation }) => {
       console.error(error)
     }
   }
-  // const handleModalDeleteCancel = () => {
-  //   setModalDeleteVisible(false)
-  // }
   return (
     <View style={styles.mainContainer}>
       {Array.isArray(cartData) && cartData.length > 0 ? (
@@ -60,7 +57,6 @@ const Cart = ({ navigation }) => {
           </View>
           <View style={styles.buttonContainer}>
             <Pressable style={styles.buttonSecondary} onPress={() => navigation.goBack()}>
-            {/* <Pressable style={styles.buttonSecondary} onPress={() => setModalDeleteVisible(true)}> */}
               <Text style={styles.textButtonSecondary}>Continuar comprando</Text>
             </Pressable>
             <Pressable style={styles.button} onPress={onConfirmOrder}>
@@ -68,7 +64,6 @@ const Cart = ({ navigation }) => {
             </Pressable>
           </View>
           <ModalConfirmOrder modalVisible={modalConfirmVisible} handleCancel={handleCancel} handleConfirm={handleConfirm}/>
-          {/* <ModalDeleteItem modalVisible={modalDeleteVisible} handleCancel={handleModalDeleteCancel}/> */}
         </View>
       ) : (
         <View style={styles.containerCartEmpty}>
