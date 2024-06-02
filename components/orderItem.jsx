@@ -1,21 +1,29 @@
-import { Pressable, StyleSheet, Text, View, Animated, Easing } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+  Easing,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { colors } from "../constants/colors";
 
 const OrderItem = ({ order }) => {
   const [showDetails, setShowDetails] = useState(false);
-  const slideAnimation = useRef(new Animated.Value(0)).current;
-  const slideInterpolate = slideAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 100],
-  });
+  const animatedHeight = useRef(new Animated.Value(0)).current;
+  const [contentHeight, setContentHeight] = useState(0);
   const showOrderDetails = () => {
     setShowDetails(!showDetails);
   };
+  const onContentLayaout = (e) => {
+    const { height } = e.nativeEvent.layout;
+    setContentHeight(height);
+  };
   useEffect(() => {
-    Animated.timing(slideAnimation, {
-      toValue: showDetails ? 1 : 0,
+    Animated.timing(animatedHeight, {
+      toValue: showDetails ? contentHeight : 0,
       duration: 300,
       easing: Easing.ease,
       useNativeDriver: false,
@@ -36,33 +44,20 @@ const OrderItem = ({ order }) => {
           <Text style={styles.text}>{order.createdAt}</Text>
           <Text style={styles.textPrice}>${order.total}</Text>
         </View>
-        {showDetails && (
-          <Animated.View
-            style={[
-              styles.itemDetailMainContainer,
-              { transform: [{ translateY: slideInterpolate }] },
-            ]}
-          >
+        <Animated.View
+          style={[styles.itemDetailMainContainer, { height: animatedHeight }]}
+        >
+          <View style={styles.prueba} onLayout={onContentLayaout}>
             {order.items.map((item, index) => (
               <View key={index} style={styles.itemDetailContainer}>
-                <Text>
+                <Text style={styles.textItemDetail}>
                   {item.title} x{item.quantity}
                 </Text>
-                <Text>${item.price}</Text>
+                <Text style={styles.textPriceItemDetail}>${item.price}</Text>
               </View>
             ))}
-          </Animated.View>
-          //   <View style={styles.itemDetailMainContainer}>
-          //     {order.items.map((item, index) => (
-          //       <View key={index} style={styles.itemDetailContainer}>
-          //         <Text>
-          //           {item.title} x{item.quantity}
-          //         </Text>
-          //         <Text>${item.price}</Text>
-          //       </View>
-          //     ))}
-          //   </View>
-        )}
+          </View>
+        </Animated.View>
       </Pressable>
     </View>
   );
@@ -91,7 +86,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemDetailMainContainer: {
+    overflow: "hidden",
     alignItems: "center",
+  },
+  prueba: {
+    width: "100%",
+    alignItems: "center"
   },
   itemDetailContainer: {
     flex: 1,
@@ -100,4 +100,10 @@ const styles = StyleSheet.create({
     width: "80%",
     margin: 2,
   },
+  textItemDetail: {
+    fontSize: 16
+  },
+  textPriceItemDetail: {
+    fontSize: 16
+  }
 });
