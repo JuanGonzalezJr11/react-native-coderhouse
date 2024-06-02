@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { colors } from "../constants/colors";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import { removeCartItem } from "../features/cartSlice";
 import ModalDeleteItem from "./modalDeleteItem";
 import { reset } from "../features/counter/counterSlice";
 
-const CartItem = ({ cartItem, setModalDeleteVisible }) => {
+const CartItem = ({ cartItem }) => {
   const quantitySelected = useSelector((state) => state.counterReducer.value)
   const [options, setOptions] = useState({
     coordinates: false,
@@ -54,7 +54,7 @@ const CartItem = ({ cartItem, setModalDeleteVisible }) => {
   }, [options.coordinates]);
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.card} onPress={() => {}}>
+      <View style={styles.card}>
         <View style={styles.container}>
           <Pressable
             style={styles.textPressable}

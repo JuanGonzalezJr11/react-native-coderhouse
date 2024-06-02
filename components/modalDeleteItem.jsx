@@ -8,11 +8,14 @@ const ModalDeleteItem = ({ modalVisible, item, quantity, handleDelete, handleCan
     <Modal visible={modalVisible} animationType="slide" transparent={true}>
       <View style={styles.modal}>
         <View style={styles.container}>
-          <Text style={styles.text}>
+          <Text style={styles.textBold}>
             ¿Está seguro que desea eliminar {item}?
           </Text>
           {Number(quantity) > 1 && (
-            <Counter maxQuantity={quantity}/>
+            <View>
+              <Text style={styles.text}>Cantidad:</Text>
+              <Counter maxQuantity={quantity}/>
+            </View>
           )}
           <View style={styles.buttonsContainer}>
             <Pressable onPress={handleDelete} style={styles.presseableDelete}>
@@ -47,10 +50,14 @@ const styles = StyleSheet.create({
         padding: 20,
         gap: 30
       },
-      text: {
+      textBold: {
         fontSize: 20,
         textAlign: "center",
         fontWeight: "bold"
+      },
+      text: {
+        fontSize: 18,
+        textAlign: "center"
       },
       buttonsContainer: {
         width: "100%",

@@ -10,8 +10,8 @@ import LoadingScreen from "./loadingScreen";
 
 const Order = () => {
   const { user } = useSelector((state) => state.authReducer.value);
-  const { data, refetch, isLoading, isError } = useGetOrderByUserQuery(user);
-  console.log(data)
+  // const { data, refetch, isLoading, isError } = useGetOrderByUserQuery(user);
+  const { data, refetch, isLoading, isError } = useGetOrderByUserQuery("ahlaulhe@gmail.com");
   const dispatch = useDispatch();
   useFocusEffect(
     React.useCallback(() => {
