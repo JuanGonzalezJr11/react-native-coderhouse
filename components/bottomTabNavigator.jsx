@@ -5,9 +5,11 @@ import Header from "./header";
 import Entypo from "@expo/vector-icons/Entypo";
 import { colors } from "../constants/colors";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import AntDesign from '@expo/vector-icons/AntDesign';
 import StackNavigator from "./stackNavigator";
 import StackNavigatorCart from "./stackNavigatorCart";
 import StackNavigatorOrder from "./stackNavigatorOrder";
+import StackNavigatorSettings from "./stackNavigatorSettings";
 
 const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -70,6 +72,23 @@ const BottomTabNavigator = () => {
               </View>
             );
           },
+        }}
+      />
+      <Tab.Screen 
+        name='Settings'
+        component={StackNavigatorSettings}
+        options={{
+          tabBarIcon: ({focused}) => {
+            return (
+              <View>
+                <AntDesign
+                  name="setting"
+                  size={24}
+                  color={focused ? colors.white : colors.primary}
+                />
+              </View>
+            )
+          }
         }}
       />
     </Tab.Navigator>
