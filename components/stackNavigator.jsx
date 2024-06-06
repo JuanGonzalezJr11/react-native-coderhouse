@@ -6,7 +6,7 @@ import ProductsList from './productsList'
 import ItemDetail from './itemDetail'
 
 const Stack = createNativeStackNavigator()
-const StackNavigator = ({ navigation }) => {
+const StackNavigator = () => {
   return (
     <Stack.Navigator
         initialRouteName='CategoriesList'

@@ -1,6 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import MyProfile from './myProfile'
+import ImageSelector from './imageSelector'
 
 const Stack = createNativeStackNavigator()
 const StackNavigatorSettings = () => {
@@ -14,6 +15,10 @@ const StackNavigatorSettings = () => {
         <Stack.Screen 
             name="MyProfile"
             component={MyProfile}
+        />
+        <Stack.Screen 
+          name="ImageSelector"
+          component={ImageSelector}
         />
     </Stack.Navigator>
   )
