@@ -3,11 +3,14 @@ import React from 'react'
 import { colors } from '../constants/colors'
 import { useFocusEffect } from '@react-navigation/native'
 import { setBottomTabSelected } from '../features/shopSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useGetProfileImageQuery } from '../services/shopService'
 
 const MyProfile = ({ navigation }) => {
   const userDefault = '../assets/userDefault.png'
   const dispatch = useDispatch()
+  const { imageCamera, localId } = useSelector(state = state.auth.value)
+  const { data: imageFromBase } = useGetProfileImageQuery(localId)
   useFocusEffect(
     React.useCallback(() => {
       dispatch(setBottomTabSelected("Mi perfil"))
@@ -18,11 +21,18 @@ const MyProfile = ({ navigation }) => {
   }
   return (
     <View style={styles.mainContainer}>
-      <Image
-        source={require(userDefault)}
-        style={styles.image}
-        resizeMode='cover'
-      />
+      {imageFromBase || imageCamera ? (
+        <Image
+          source={{ uri: imageFromBase?.image || imageCamera }}
+          style={styles.image}
+          resizeMode='cover'
+        />
+      ) : (
+        <Image
+          source={require(userDefault)}
+          style={styles.image}
+          resizeMode='cover'
+        />)}
       <Pressable style={styles.button} onPress={launchCamera}>
         <Text style={styles.textButton}>Editar foto de perfil</Text>
       </Pressable>
